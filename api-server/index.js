@@ -34,9 +34,6 @@ app.get('/number/avg', (req, res) => {
 
     let result = findAvg(numbers);
     res.json(result);
-
-    // let inputs = numbers.split(',');
-    // res.json({result: inputs});
 });
 
 app.listen(port, () => {
