@@ -106,8 +106,6 @@ function searchElement(elements, keyword) {
     else {
         return ({error: "Please enter valid search keyword"});
     }
-
-    
 }
 
 // bubble sort algo for sorting numbers
