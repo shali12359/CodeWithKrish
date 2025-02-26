@@ -1,6 +1,6 @@
 // 1 - function for find min number
 function findMin(num1, num2) {
-    if (Number.isNaN(num1) || Number.isNaN(num2)) {
+    if (isNaN(num1) || isNaN(num2)) {
         return ({error: "Please enter valid numbers"});
     }
     else {
@@ -15,10 +15,12 @@ function findMin(num1, num2) {
 
 // 2 - function for find max number
 function findMax(num1, num2) {
-    if (Number.isNaN(num1) || Number.isNaN(num2)) {
+    // validate whether a number
+    if (isNaN(num1) || isNaN(num2)) {
         return ({error: "Please enter valid numbers"});
     }
     else {
+        // check max number
         if (num1 > num2) {
             return ({ans: `Number 1 is the max: ${num1}`})
         }
@@ -30,17 +32,22 @@ function findMax(num1, num2) {
 
 // 3 - function for find average of numbers
 function findAvg(numbers) {
+    // split number list by ,
     const inputs = numbers.split(',');
+    // store length of numbers
     const length = Object.keys(inputs).length;
     let avg = 0;
-    let output = "";
 
+    // loop through number list
     for (let key in inputs) {
+        // validate whether a number
         if (isNaN(inputs[key])) {
             return ({error: "Please enter valid number list"});
         }
         else {
+            // convert string values into float
             inputs[key] = parseFloat(inputs[key]);
+            // calculate average
             avg += inputs[key] / length;
         }
     }
@@ -62,18 +69,44 @@ function sortNumbers(numbers, type) {
     }
 
     if (type == "asc") {
-        const sorted_asc = inputs.sort((a, b) => a - b);
+        const sorted_asc = bubbleSort(inputs, type);
 
         return ({sorted: `Sorted in ascending order: ${sorted_asc}`});
     }
     else if(type == "dec") {
-        const sorted_dec = inputs.sort((a, b) => b - a);
+        const sorted_dec = bubbleSort(inputs, type);
 
         return ({sorted: `Sorted in descending order: ${sorted_dec}`});
     }
     else {
         return ({error: "Please enter valid sorting type"});
     }
+}
+
+// bubble sort algo for sorting numbers
+function bubbleSort(arr, type) {
+    // loop through the elements
+    for (var i = 0; i < arr.length; i++) { 
+        for (var j = 0; j < (arr.length - i - 1); j++) {
+            // check sort type & do the sorting
+            if (type === 'asc') {
+                if (arr[j] > arr[j + 1]) {
+                    var temp = arr[j]
+                    arr[j] = arr[j + 1]
+                    arr[j + 1] = temp
+                }
+            }
+            else if (type === 'dec') {
+                if (arr[j] < arr[j + 1]) {
+                    var temp = arr[j]
+                    arr[j] = arr[j + 1]
+                    arr[j + 1] = temp
+                }
+            }
+        }
+    }
+
+    return arr;
 }
 
 // exporting functions

@@ -28,7 +28,7 @@ app.get('/number/max', (req, res) => {
     res.json(result);
 });
 
-// 3 - find max number endpoint
+// 3 - find average of numbers endpoint
 app.get('/number/avg', (req, res) => {
     const numbers = req.query.numbers;
 
@@ -42,7 +42,7 @@ app.get('/number/sort', (req, res) => {
     const type = req.query.type;
 
     let result = sortNumbers(numbers, type);
-    
+
     res.json(result);
 });
 
