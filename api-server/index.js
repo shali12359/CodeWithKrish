@@ -1,5 +1,5 @@
 const express = require('express');
-const { findMin, findMax, findAvg, sortNumbers } =  require('./util.js');
+const { findMin, findMax, findAvg, sortNumbers, searchElement } =  require('./util.js');
 const app = new express();
 const port = 3000;
 
@@ -42,6 +42,18 @@ app.get('/number/sort', (req, res) => {
     const type = req.query.type;
 
     let result = sortNumbers(numbers, type);
+
+    res.json(result);
+});
+
+// 5 - search element endpoint
+app.get('/number/count', (req, res) => {
+    const elements = req.query.numbers;
+    const keyword = req.query.search;
+
+    console.log(keyword);
+
+    let result = searchElement(elements, keyword);
 
     res.json(result);
 });

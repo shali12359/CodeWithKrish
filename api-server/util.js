@@ -55,7 +55,7 @@ function findAvg(numbers) {
     return({avg: `Average of given numbers: ${avg}`});
 }
 
-// 4 - function for find sort numbers
+// 4 - function for sort numbers
 function sortNumbers(numbers, type) {
     const inputs = numbers.split(',');
 
@@ -68,7 +68,9 @@ function sortNumbers(numbers, type) {
         }
     }
 
+    // check sorting type
     if (type == "asc") {
+        // call bubble sort function to sort
         const sorted_asc = bubbleSort(inputs, type);
 
         return ({sorted: `Sorted in ascending order: ${sorted_asc}`});
@@ -81,6 +83,31 @@ function sortNumbers(numbers, type) {
     else {
         return ({error: "Please enter valid sorting type"});
     }
+}
+
+// 5 - function for search given element
+function searchElement(elements, keyword) {
+    const inputs = elements.split(',');
+    // variable to store occurence
+    var occurance = 0;
+
+    // check keyword presents
+    if (keyword) {
+        // loop through the element list
+        for (let i = 0; i < inputs.length; i++) {
+            // check element occurance
+            if (inputs[i] === keyword) {
+                occurance++;
+            }
+        }
+
+        return ({sorted: `Element occured in : ${occurance} times`});
+    }
+    else {
+        return ({error: "Please enter valid search keyword"});
+    }
+
+    
 }
 
 // bubble sort algo for sorting numbers
@@ -110,4 +137,4 @@ function bubbleSort(arr, type) {
 }
 
 // exporting functions
-module.exports = { findMin, findMax, findAvg, sortNumbers };
+module.exports = { findMin, findMax, findAvg, sortNumbers, searchElement };
