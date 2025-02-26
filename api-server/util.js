@@ -28,6 +28,25 @@ function findMax(num1, num2) {
     }
 }
 
+// 3 - function for find average of numbers
+function findAvg(numbers) {
+    const inputs = numbers.split(',');
+    const length = Object.keys(inputs).length;
+    let avg = 0;
+    let output = "";
+
+    for (let key in inputs) {
+        if (isNaN(inputs[key])) {
+            return ({error: "Please enter valid number list"});
+        }
+        else {
+            inputs[key] = parseFloat(inputs[key]);
+            avg += inputs[key] / length;
+        }
+    }
+
+    return({avg: `Average of given numbers: ${avg}`});
+}
 
 // exporting functions
-module.exports = { findMin, findMax };
+module.exports = { findMin, findMax, findAvg };

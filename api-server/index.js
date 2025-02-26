@@ -1,5 +1,5 @@
 const express = require('express');
-const { findMin, findMax } =  require('./util.js');
+const { findMin, findMax, findAvg } =  require('./util.js');
 const app = new express();
 const port = 3000;
 
@@ -28,6 +28,16 @@ app.get('/number/max', (req, res) => {
     res.json(result);
 });
 
+// 3 - find max number endpoint
+app.get('/number/avg', (req, res) => {
+    const numbers = req.query.numbers;
+
+    let result = findAvg(numbers);
+    res.json(result);
+
+    // let inputs = numbers.split(',');
+    // res.json({result: inputs});
+});
 
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
