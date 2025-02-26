@@ -48,5 +48,33 @@ function findAvg(numbers) {
     return({avg: `Average of given numbers: ${avg}`});
 }
 
+// 4 - function for find sort numbers
+function sortNumbers(numbers, type) {
+    const inputs = numbers.split(',');
+
+    for (let key in inputs) {
+        if (isNaN(inputs[key])) {
+            return ({error: "Please enter valid number list"});
+        }
+        else {
+            inputs[key] = parseFloat(inputs[key]);
+        }
+    }
+
+    if (type == "asc") {
+        const sorted_asc = inputs.sort((a, b) => a - b);
+
+        return ({sorted: `Sorted in ascending order: ${sorted_asc}`});
+    }
+    else if(type == "dec") {
+        const sorted_dec = inputs.sort((a, b) => b - a);
+
+        return ({sorted: `Sorted in descending order: ${sorted_dec}`});
+    }
+    else {
+        return ({error: "Please enter valid sorting type"});
+    }
+}
+
 // exporting functions
-module.exports = { findMin, findMax, findAvg };
+module.exports = { findMin, findMax, findAvg, sortNumbers };

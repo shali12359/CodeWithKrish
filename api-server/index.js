@@ -1,5 +1,5 @@
 const express = require('express');
-const { findMin, findMax, findAvg } =  require('./util.js');
+const { findMin, findMax, findAvg, sortNumbers } =  require('./util.js');
 const app = new express();
 const port = 3000;
 
@@ -33,6 +33,16 @@ app.get('/number/avg', (req, res) => {
     const numbers = req.query.numbers;
 
     let result = findAvg(numbers);
+    res.json(result);
+});
+
+// 4 - sort numbers endpoint
+app.get('/number/sort', (req, res) => {
+    const numbers = req.query.numbers;
+    const type = req.query.type;
+
+    let result = sortNumbers(numbers, type);
+    
     res.json(result);
 });
 
