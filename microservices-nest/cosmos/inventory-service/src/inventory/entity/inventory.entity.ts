@@ -1,17 +1,18 @@
 import { IsNotEmpty } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-// customer entity class with validations
+// inventory entity class with validations
 @Entity()
-export class Customer {
+export class Inventory {
     @PrimaryGeneratedColumn()
     id: number;
     @Column()
     @IsNotEmpty({ message: 'Name is required'})
     name: string;
-    @Column({ unique: true })
-    @IsNotEmpty({ message: 'Email is required'})
-    email: string;
-    @Column({ nullable: true })
-    address: string;
+    @Column('decimal')
+    @IsNotEmpty({ message: 'Price is required'})
+    price: number;
+    @Column()
+    @IsNotEmpty({ message: 'Quentity is required'})
+    quentity: number;
 }
