@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "310039f1-17d3-4fec-8fc4-3dc69d7a5312",
+		"name": "Customer service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10297647",
+		"_collection_link": "https://blue-zodiac-532691.postman.co/workspace/Team-Workspace~eea0cd70-e748-405a-8544-c3244477938c/collection/10297647-310039f1-17d3-4fec-8fc4-3dc69d7a5312?action=share&source=collection_link&creator=10297647"
+	},
+	"item": [
+		{
+			"name": "Add customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Shan\",\n    \"email\": \"shan@gmail.com\",\n    \"address\": \"SL\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all customers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/customers/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"customers",
+						"11"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
