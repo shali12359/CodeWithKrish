@@ -7,7 +7,7 @@ function OrderManagement() {
     const [productId, setProductId] = React.useState("");
     const [price, setPrice] = React.useState("");
     const [quantity, setQuantity] = React.useState("");
-    var [orders, setOrders] = React.useState("");
+    const [orders, setOrders] = React.useState([]);
 
     const handleOrderSubmit = async (e) => {
         e.preventDefault();
@@ -41,8 +41,7 @@ function OrderManagement() {
     const fetchOrders = async () => {
         try {
             const response = await getOrders();
-            orders = response.data;
-            console.log("orders: " + orders[0].id);
+            setOrders(response.data);
         }
         catch(error) {
             alert("Error in getting order details: " + error);
@@ -68,13 +67,26 @@ function OrderManagement() {
             </form> 
 
             <div>
+                <h3>Order Details</h3>
                 <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Customer ID</th>
-                        <th>Order Date</th>
-                    </tr>
-                    
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer ID</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {orders.map(item => (
+                            <tr key={item.id}>
+                                <td>{item.id}</td>
+                                <td>{item.customerId}</td>
+                                <td>{item.createdAt}</td>
+                                <td>{item.status}</td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </table>
             </div>
         </>
