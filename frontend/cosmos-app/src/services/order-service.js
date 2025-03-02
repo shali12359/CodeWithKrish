@@ -10,4 +10,13 @@ const getOrders = async () => {
     return axios.get(baseUrl);
 }
 
-export {createOrder, getOrders}
+// update order status
+const updateOrderStatus = async (id, status) => {
+    const requestBody = {
+        status: status
+    }
+
+    return axios.patch(`${baseUrl}/${id}/status`, requestBody);
+}
+
+export {createOrder, getOrders, updateOrderStatus}

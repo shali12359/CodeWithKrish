@@ -1,14 +1,18 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { createOrder, getOrders } from '../services/order-service';
+import { createOrder, getOrders, updateOrderStatus } from '../services/order-service';
+import { useNavigate } from "react-router-dom";
 
 function OrderManagement() {
     const [customerId, setCustomerId] = React.useState("");
     const [productId, setProductId] = React.useState("");
     const [price, setPrice] = React.useState("");
     const [quantity, setQuantity] = React.useState("");
+    const [orderStatus, setOrderStatus] = React.useState("");
+    const [updateId, setUpdateId] = React.useState("");
     const [orders, setOrders] = React.useState([]);
 
+    // 1 - call create order endpoint
     const handleOrderSubmit = async (e) => {
         e.preventDefault();
         console.log('Order submitted');
@@ -27,17 +31,46 @@ function OrderManagement() {
         try {
             const response = await createOrder(order);
             alert('Order placed successfully');
-            console.log(response.data);
+            window.location.reload();
         } catch (error) {
             alert('Error submitting order: ' + error);
         }
     } 
 
+    // set update product id
+    const handleUpdateButton = async (id) => {
+        setUpdateId(id)
+    }
+
+    // set change value of order status dropdown
+    const handleStatusChange = (event) => {
+        setOrderStatus(event.target.value);
+    };
+
+    // 2 - call order status update endpoint
+    const handleUpdateOrderStatusSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await updateOrderStatus(updateId, orderStatus);
+            
+            if (response.data.id) {
+                alert("Product status updated");
+                window.location.reload();
+            }
+        }
+        catch(error) {
+            alert("Error in getting order details: " + error);
+        }
+    }
+
+    // get order data
     useEffect(() => {
         fetchOrders();
     }, 
     []) 
 
+    // 3 - call get order details endpoint
     const fetchOrders = async () => {
         try {
             const response = await getOrders();
@@ -47,6 +80,7 @@ function OrderManagement() {
             alert("Error in getting order details: " + error);
         }
     }
+    
     return (
         <>
             <h3>Create Order</h3>
@@ -84,10 +118,35 @@ function OrderManagement() {
                                 <td>{item.customerId}</td>
                                 <td>{item.createdAt}</td>
                                 <td>{item.status}</td>
+                                <td>
+                                    <button onClick={() => handleUpdateButton(item.id)}>
+                                        Update Status
+                                    </button>    
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            <div>
+            <h3>Update Order Status</h3>
+            <form onSubmit={ handleUpdateOrderStatusSubmit }>
+                <label htmlFor="order_id">Order ID</label>
+                <input type="text" id="order_id" name="order_id" value={updateId} required disabled="disabled"/><br/><br/>
+                
+                <label htmlFor="order_status">Order Status</label>
+                <select name="category" value={orderStatus} onChange={handleStatusChange}>
+                    <option value="" >Select Status</option>
+                    <option value="PENDING" >PENDING</option>
+                    <option value="CONFIRMED" >CONFIRMED</option>
+                    <option value="SHIPED" >SHIPED</option>
+                    <option value="DELIVERED" >DELIVERED</option>
+                    <option value="CANCELED" >CANCELED</option>
+                </select>
+
+                <input type="submit" value="Update Order Status" />
+            </form>
             </div>
         </>
     )

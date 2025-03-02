@@ -20,6 +20,7 @@ function CustomerManagement() {
         try {
             const response = await adddCustomer(customer);
             alert('Customer added successfully');
+            window.location.reload();
         } catch (error) {
             alert('Error adding customer: ' + error);
         }

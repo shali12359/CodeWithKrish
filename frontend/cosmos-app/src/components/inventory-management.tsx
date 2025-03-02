@@ -20,6 +20,7 @@ function InventoryManagement() {
         try {
             const response = await adddToInventory(product);
             alert('Product added successfully');
+            window.location.reload();
         } catch (error) {
             alert('Error adding product: ' + error);
         }
