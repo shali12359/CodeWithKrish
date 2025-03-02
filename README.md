@@ -15,3 +15,10 @@ https://stackoverflow.com/questions/76793746/manage-optional-and-required-fields
 https://stackoverflow.com/questions/55571773/validation-on-optional-parameter-using-class-validator-in-nestjs
 https://stackoverflow.com/questions/76921431/typeorm-postgres-nestjs-columndecimal-is-returning-string
 https://stackoverflow.com/questions/66892908/how-to-create-a-function-that-returns-a-promise-type-dynamically
+
+Assignment 3
+https://stackoverflow.com/questions/40714583/how-to-specify-a-port-to-run-a-create-react-app-based-project
+https://stackoverflow.com/questions/35912731/how-to-create-a-simple-react-dropdown
+https://docs.nestjs.com/techniques/http-module#getting-started
+https://stackoverflow.com/questions/70903843/react-reload-page-by-clicking-on-same-link
+https://stackoverflow.com/questions/70932433/how-to-create-an-patch-request-with-axios
