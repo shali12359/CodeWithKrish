@@ -7,7 +7,7 @@ function OrderManagement() {
     const [productId, setProductId] = React.useState("");
     const [price, setPrice] = React.useState("");
     const [quantity, setQuantity] = React.useState("");
-    const [orders, setOrders] = React.useState("");
+    var [orders, setOrders] = React.useState("");
 
     const handleOrderSubmit = async (e) => {
         e.preventDefault();
@@ -41,11 +41,11 @@ function OrderManagement() {
     const fetchOrders = async () => {
         try {
             const response = await getOrders();
-            console.log(response.data);
-            
+            orders = response.data;
+            console.log("orders: " + orders[0].id);
         }
-        catch {
-
+        catch(error) {
+            alert("Error in getting order details: " + error);
         }
     }
     return (
@@ -74,6 +74,7 @@ function OrderManagement() {
                         <th>Customer ID</th>
                         <th>Order Date</th>
                     </tr>
+                    
                 </table>
             </div>
         </>
