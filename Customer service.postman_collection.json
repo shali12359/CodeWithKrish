@@ -22,12 +22,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3001/customers",
+					"raw": "http://localhost:3002/customers",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "3002",
 					"path": [
 						"customers"
 					]
@@ -41,12 +41,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3001/customers",
+					"raw": "http://localhost:3002/customers",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "3002",
 					"path": [
 						"customers"
 					]
@@ -60,15 +60,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3001/customers/11",
+					"raw": "http://localhost:3002/customers/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "3002",
 					"path": [
 						"customers",
-						"11"
+						"5"
 					]
 				}
 			},

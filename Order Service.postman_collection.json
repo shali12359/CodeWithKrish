@@ -14,7 +14,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"customerId\": 3,\n    \"Items\": [\n        {\n            \"productId\": 112,\n            \"price\": 120,\n            \"quentity\": 2\n        },\n        {\n            \"productId\": 11,\n            \"price\": 10,\n            \"quentity\": 10\n        }\n    ]\n}",
+					"raw": "{\n    \"customerId\": 12,\n    \"Items\": [\n        {\n            \"productId\": 4,\n            \"price\": 120,\n            \"quentity\": 1\n        },\n        {\n            \"productId\": 5,\n            \"price\": 120,\n            \"quentity\": 1\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -62,7 +62,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/orders/2",
+					"raw": "http://localhost:3000/orders/32",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -70,7 +70,7 @@
 					"port": "3000",
 					"path": [
 						"orders",
-						"2"
+						"32"
 					]
 				}
 			},
@@ -91,7 +91,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/orders/2/status",
+					"raw": "http://localhost:3000/orders/31/status",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -99,7 +99,7 @@
 					"port": "3000",
 					"path": [
 						"orders",
-						"2",
+						"31",
 						"status"
 					]
 				}
