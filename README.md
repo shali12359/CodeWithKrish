@@ -22,3 +22,6 @@ https://stackoverflow.com/questions/35912731/how-to-create-a-simple-react-dropdo
 https://docs.nestjs.com/techniques/http-module#getting-started
 https://stackoverflow.com/questions/70903843/react-reload-page-by-clicking-on-same-link
 https://stackoverflow.com/questions/70932433/how-to-create-an-patch-request-with-axios
+
+Assignment 4
+Had an issue with Docker hub, hence configured Kafka locally.
