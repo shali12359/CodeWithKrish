@@ -32,7 +32,6 @@ export class OrdersService {
 
             const response = await lastValueFrom(response$);
             
-            
             if (!response.data.id) {
               throw new BadRequestException(
                 `Customer doesn't exists with iD ${ response.data.id }`,
