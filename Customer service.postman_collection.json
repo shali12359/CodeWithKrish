@@ -60,7 +60,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3002/customers/5",
+					"raw": "http://localhost:3002/customers/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -68,7 +68,7 @@
 					"port": "3002",
 					"path": [
 						"customers",
-						"5"
+						"1"
 					]
 				}
 			},

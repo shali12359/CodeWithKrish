@@ -14,7 +14,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Iphone 17\",\n    \"price\": 200,\n    \"quentity\": 20\n}",
+					"raw": "{\n    \"name\": \"Iphone 15\",\n    \"price\": 200,\n    \"quantity\": 20\n}",
 					"options": {
 						"raw": {
 							"language": "json"
