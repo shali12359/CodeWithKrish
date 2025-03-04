@@ -9,6 +9,7 @@ import { log } from 'console';
 
 @Injectable()
 export class DispatcherService implements OnModuleInit {
+    // configure kafka, redis
     private readonly kafka = new Kafka({ brokers: ['3.0.159.213:9092']});
     private readonly producer = this.kafka.producer();
     private readonly consumer = this.kafka.consumer({ groupId: 'prabath-dispatcher-service' });
@@ -25,20 +26,30 @@ export class DispatcherService implements OnModuleInit {
         await this.consumeDispatcherService();
     }
 
+    // create a new dispatch
     async createDispatch(createDispatcherDto: createDispatcherDto): Promise<Dispatcher> {
         const dispatcher = this.dispatcherRepository.create(createDispatcherDto);
     
         return this.dispatcherRepository.save(dispatcher);
     }
 
+    // get dispatchers by city
     async getDispatcherByCity(city: string) {
-        const dispatcher = await this.dispatcherRepository.findOne({ where: { city } });
+        const dispatcher = await this.dispatcherRepository.find({ where: { city } });
         if (!dispatcher) {
           throw new NotFoundException(`Can't find dispatcher from city: ${ city }`);
         }
         return dispatcher;
     }
 
+    // release dispatcher
+    async releaseDispatch(vehicle_number: string) {
+        const dispatcher = await this.dispatcherRepository.findOne({ where: { vehicle_number } });
+
+
+    }
+
+    // consume order corfirmation event
     async consumeDispatcherService() {
         await this.consumer.subscribe({
             topic:`prabath.order.confirmed`,
@@ -62,25 +73,25 @@ export class DispatcherService implements OnModuleInit {
                 const availableVehicles = this.getDispatcherByCity(dispatcherCity);
                 console.log("Available: " + availableVehicles);
                 
+                // check vehicles are available
                 if (!availableVehicles) {
                     console.log(`Cannot find vehicle for order: ${city}`);
                 }
                 else {
                     // aquire lock
-                        // const lockKey = `prabath:dispatch:${availableVehicles}:lock`;
-                        // const lock = await this.redis.set(lockKey, 'locked', 'EX', 3600*24, 'NX');
-                
-                        // if (!lock) {
-                        // throw new BadRequestException(`Product id ${item.productId } is being processed. Please try again later`)
-                        // }
-                
-                        // console.log("Lock created");
+                    for (const vehicle of await availableVehicles) {
+                        const lockKey = `prabath:dispatcher:${vehicle.vehicle_number}:lock`;
+                        const lock = await this.redis.set(lockKey, 'locked', 'EX', 3600*24, 'NX');
+                  
+                        if (!lock) {
+                          throw new BadRequestException(`Vehicle allocated: ${vehicle.vehicle_number }`)
+                        }
+                  
+                        console.log("Lock created for dispatcher");
+                        
+                      }
                         
                 }
-
-
-
-                
             }
         })
 
