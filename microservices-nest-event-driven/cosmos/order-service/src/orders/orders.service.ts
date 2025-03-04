@@ -14,12 +14,14 @@ import { HttpService } from '@nestjs/axios';
 import { lastValueFrom } from 'rxjs';
 import { Kafka } from 'kafkajs';
 import { log } from 'console';
+import { Redis } from 'ioredis';
 
 @Injectable()
 export class OrdersService implements OnModuleInit {
-  private readonly kafka = new Kafka({ brokers: ['localhost:9092']});
+  private readonly kafka = new Kafka({ brokers: ['3.0.159.213:9092']});
   private readonly producer = this.kafka.producer();
   private readonly consumer = this.kafka.consumer({ groupId: 'prabath-order-service' });
+  private readonly redis = new Redis({ host:'3.0.159.213', port:6379});
 
   private readonly inventoryServiceUrl = 'http://localhost:3001/products';
   private readonly customerServiceUrl = 'http://localhost:3002/customers';
@@ -54,6 +56,19 @@ export class OrdersService implements OnModuleInit {
       throw new BadRequestException(
         `Customer ID ${customerId} does not exist.`,
       );
+    }
+
+    // aquire lock
+    for (const item of items) {
+      const lockKey = `prabath:products:${item.productId}:lock`;
+      const lock = await this.redis.set(lockKey, 'locked', 'EX', 3600*24, 'NX');
+
+      if (!lock) {
+        throw new BadRequestException(`Product id ${item.productId } is being processed. Please try again later`)
+      }
+
+      console.log("Lock created");
+      
     }
 
     //-----------------

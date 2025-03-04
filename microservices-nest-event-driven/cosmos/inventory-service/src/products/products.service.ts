@@ -10,12 +10,14 @@ import { Product } from './entity/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Kafka } from 'kafkajs';
 import { log } from 'console';
+import { Redis } from 'ioredis';
 
 @Injectable()
 export class ProductsService implements OnModuleInit {
-  private readonly kafka = new Kafka({ brokers: ['localhost:9092']});
+  private readonly kafka = new Kafka({ brokers: ['3.0.159.213:9092']});
   private readonly producer = this.kafka.producer();
   private readonly consumer = this.kafka.consumer({ groupId: 'prabath-inventory-service2' });
+  private readonly redis = new Redis({ host: '3.0.159.213', port:6379});
 
   constructor(
     @InjectRepository(Product)
@@ -78,6 +80,15 @@ export class ProductsService implements OnModuleInit {
 
         for (const item of items) {
           await this.reduceStock(item.productId, item.quantity);
+        }
+
+        // release lock
+        for (const item of items) {
+          const lockKey = `prabath:products:${item.productId}:lock`;
+
+          await this.redis.del(lockKey);
+
+          console.log("Lock released");
         }
 
         await this.producer.send({
