@@ -66,12 +66,12 @@ export class ProductsService implements OnModuleInit {
 
   async consumeOrderCreation() {
     await this.consumer.subscribe({ 
-      topic:`prabath.order.create`,
+      topic:`prabath.order.create2`,
     });
 
     await this.consumer.run({
       eachMessage: async ({ message}) => {
-        const { customerId, customerName, items } = JSON.parse(
+        const { customerId, city, customerName, items } = JSON.parse(
           message.value.toString()
         );
 
@@ -94,7 +94,7 @@ export class ProductsService implements OnModuleInit {
         await this.producer.send({
           topic:`prabath.inventory.update`,
           messages: [
-            { value: JSON.stringify( { customerId, customerName, items })}
+            { value: JSON.stringify( { customerId, city, customerName, items })}
           ]
         })
       }

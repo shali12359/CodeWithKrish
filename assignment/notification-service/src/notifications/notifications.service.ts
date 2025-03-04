@@ -26,7 +26,7 @@ export class NotificationsService implements OnModuleInit {
                     return; 
                 }
                     
-                const { customerId, items } = JSON.parse(
+                const { customerId, city, items } = JSON.parse(
                     message.value.toString()
                 );
 

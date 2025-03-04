@@ -10,9 +10,11 @@ class OrderItemDto {
   quantity: number;
 }
 
-export class createOrderDto {
+export class confirmOrderDto {
   @IsInt()
   customerId: number;
+
+  // city field
   @IsString()
   city: string;
   @IsArray()

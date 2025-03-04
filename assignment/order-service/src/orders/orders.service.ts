@@ -42,7 +42,7 @@ export class OrdersService implements OnModuleInit {
   }
 
   async create(createOrderDto: createOrderDto): Promise<any> {
-    const { customerId, items } = createOrderDto;
+    const { customerId, city, items } = createOrderDto;
     //--------customer
     // Validate customer exists
     let customerName = '';
@@ -74,9 +74,9 @@ export class OrdersService implements OnModuleInit {
     //-----------------
     // produce an order as an event
     this.producer.send({
-      topic:`prabath.order.create`,
+      topic:`prabath.order.create2`,
       messages: [
-        { value: JSON.stringify({ customerId, customerName, items })}
+        { value: JSON.stringify({ customerId, city, customerName, items })}
       ]
     });
 
@@ -171,20 +171,21 @@ export class OrdersService implements OnModuleInit {
 
     this.consumer.run({
       eachMessage: async ({ message }) => {
-        const { customerId, items } = JSON.parse(
+        const { customerId, city, items } = JSON.parse(
           message.value.toString()
         )
 
-        this.placeOrder({ customerId, items });
+        this.placeOrder({ customerId, city, items });
       }
     })
   }
 
   async placeOrder(createOrderDto: createOrderDto) {
-    const { customerId, items } = createOrderDto;
+    const { customerId, city, items } = createOrderDto;
 
     const order = this.orderRepository.create({
       customerId,
+      city,
       status: 'PENDING',
     });
 
@@ -207,7 +208,7 @@ export class OrdersService implements OnModuleInit {
     this.producer.send({
       topic:`prabath.order.confirmed`,
       messages: [
-        { value: JSON.stringify({ customerId, items })}
+        { value: JSON.stringify({ customerId, city, items })}
       ]
     });
 

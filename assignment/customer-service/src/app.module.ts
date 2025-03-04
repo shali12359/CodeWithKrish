@@ -12,7 +12,7 @@ import { Customer } from './customers/entity/customer.entity';
       port: 3306,
       username: 'root',
       password: 'kjksz2631@SQL',
-      database: 'cosmos2',
+      database: 'cosmos3',
       entities: [Customer],
       synchronize: true, //only on dev
     }),

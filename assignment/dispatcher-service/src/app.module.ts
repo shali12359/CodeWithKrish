@@ -1,14 +1,11 @@
 import { Module } from '@nestjs/common';
-import { OrdersModule } from './orders/orders.module';
+import { DispatcherModule } from './dispatcher/dispatcher.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Order } from './orders/entity/order.entity';
-import { OrderItem } from './orders/entity/order-item.entity';
-import { HttpModule } from '@nestjs/axios';
-import { AuthModule } from './auth/auth.module';
+import { Dispatcher } from './dispatcher/entity/dispatcher.entity';
 
 @Module({
   imports: [
-    OrdersModule,
+    DispatcherModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.HOSTNAME || 'localhost',
@@ -16,10 +13,9 @@ import { AuthModule } from './auth/auth.module';
       username: 'root',
       password: 'kjksz2631@SQL',
       database: 'cosmos3',
-      entities: [Order, OrderItem],
+      entities: [Dispatcher],
       synchronize: true, //only on dev
-    }),
-    AuthModule,
+    })
   ],
 })
 export class AppModule {}
